@@ -7,7 +7,7 @@ import lii.cloudnovataskmanagementapi.enums.TaskEnums.TaskStatus;
 import java.util.List;
 import java.util.UUID;
 
-public interface TaskService {
+public interface InterfaceForTaskService {
 
     TaskDTO createTask(TaskRequest taskRequest);
 
