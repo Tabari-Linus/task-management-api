@@ -23,7 +23,18 @@ public class Task {
     private LocalDateTime updatedAt;
     private LocalDateTime dueDate;
 
+    public Task() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+        this.status = TaskStatus.PENDING;
+        this.priority = TaskPriority.MEDIUM;
+    }
 
+    public Task(String title, String description) {
+        this();
+        this.title = title;
+        this.description = description;
+    }
 
     public enum TaskStatus {
         PENDING, IN_PROGRESS, COMPLETED, CANCELLED
