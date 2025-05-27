@@ -1,5 +1,7 @@
 package lii.cloudnovataskmanagementapi.model;
 
+import lii.cloudnovataskmanagementapi.enums.TaskEnums.TaskPriority;
+import lii.cloudnovataskmanagementapi.enums.TaskEnums.TaskStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,13 +36,6 @@ public class Task {
         this.description = description;
     }
 
-    public enum TaskStatus {
-        PENDING, IN_PROGRESS, COMPLETED, CANCELLED
-    }
-
-    public enum TaskPriority {
-        LOW, MEDIUM, HIGH, URGENT
-    }
 }
 
 

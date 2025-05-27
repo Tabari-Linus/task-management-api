@@ -1,7 +1,7 @@
 package lii.cloudnovataskmanagementapi.dto;
 
 
-import lii.cloudnovataskmanagementapi.model.Task.TaskStatus;
+import lii.cloudnovataskmanagementapi.enums.TaskEnums.TaskStatus;
 import lombok.*;
 
 import java.time.LocalDateTime;

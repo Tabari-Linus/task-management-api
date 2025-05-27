@@ -1,8 +1,8 @@
 package lii.cloudnovataskmanagementapi.repository;
 
 import lii.cloudnovataskmanagementapi.model.Task;
-import lii.cloudnovataskmanagementapi.model.Task.TaskStatus;
-import lii.cloudnovataskmanagementapi.model.Task.TaskPriority;
+import lii.cloudnovataskmanagementapi.enums.TaskEnums.TaskStatus;
+import lii.cloudnovataskmanagementapi.enums.TaskEnums.TaskPriority;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
