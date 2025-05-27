@@ -2,7 +2,7 @@ package lii.cloudnovataskmanagementapi.service;
 
 import lii.cloudnovataskmanagementapi.dto.TaskDTO;
 import lii.cloudnovataskmanagementapi.dto.TaskRequest;
-import lii.cloudnovataskmanagementapi.enums.TaskEnums.TaskStatus;
+import lii.cloudnovataskmanagementapi.enums.TaskStatus;
 
 import java.util.List;
 import java.util.UUID;

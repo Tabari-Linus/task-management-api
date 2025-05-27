@@ -1,7 +1,7 @@
 package lii.cloudnovataskmanagementapi.model;
 
-import lii.cloudnovataskmanagementapi.enums.TaskEnums.TaskPriority;
-import lii.cloudnovataskmanagementapi.enums.TaskEnums.TaskStatus;
+import lii.cloudnovataskmanagementapi.enums.TaskPriority;
+import lii.cloudnovataskmanagementapi.enums.TaskStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

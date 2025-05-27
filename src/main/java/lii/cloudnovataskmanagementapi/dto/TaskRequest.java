@@ -1,7 +1,7 @@
 package lii.cloudnovataskmanagementapi.dto;
 
-import lii.cloudnovataskmanagementapi.enums.TaskEnums.TaskPriority;
-import lii.cloudnovataskmanagementapi.enums.TaskEnums.TaskStatus;
+import lii.cloudnovataskmanagementapi.enums.TaskPriority;
+import lii.cloudnovataskmanagementapi.enums.TaskStatus;
 
 import java.time.LocalDateTime;
 
