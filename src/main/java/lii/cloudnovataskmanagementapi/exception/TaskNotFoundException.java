@@ -1,7 +1,9 @@
 package lii.cloudnovataskmanagementapi.exception;
 
+import java.util.UUID;
+
 public class TaskNotFoundException extends RuntimeException {
-    public TaskNotFoundException(Long id) {
+    public TaskNotFoundException(UUID id) {
         super("Task with ID " + id + " not found.");
     }
 }
