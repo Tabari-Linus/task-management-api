@@ -2,10 +2,11 @@ package lii.cloudnovataskmanagementapi.dto;
 
 import lii.cloudnovataskmanagementapi.enums.TaskPriority;
 import lii.cloudnovataskmanagementapi.enums.TaskStatus;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
-
+@Data
 public class TaskRequest {
     private String title;
     private String description;
