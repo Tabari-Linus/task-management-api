@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Repository
@@ -54,17 +53,17 @@ public class TaskRepository {
         Task task1 = new Task("Setup Development Environment", "Install Java, Maven, and IDE");
         task1.setStatus(TaskStatus.COMPLETED);
         task1.setPriority(TaskPriority.HIGH);
-        save(task1);
+        creatTask(task1);
 
         Task task2 = new Task("Implement REST API", "Create CRUD endpoints for task management");
         task2.setStatus(TaskStatus.IN_PROGRESS);
         task2.setPriority(TaskPriority.HIGH);
-        save(task2);
+        creatTask(task2);
 
         Task task3 = new Task("Write Documentation", "Create comprehensive API documentation");
         task3.setStatus(TaskStatus.PENDING);
         task3.setPriority(TaskPriority.MEDIUM);
-        save(task3);
+        creatTask(task3);
     }
 
 }
