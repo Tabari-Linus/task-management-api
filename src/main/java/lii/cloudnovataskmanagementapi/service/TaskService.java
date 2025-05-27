@@ -1,4 +1,6 @@
 package lii.cloudnovataskmanagementapi.service;
 
-public class TaskService {
+public interface TaskService {
+
+
 }
