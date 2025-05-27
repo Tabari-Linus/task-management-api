@@ -15,6 +15,26 @@ public class TaskService implements TaskServiceInterface {
         this.taskRepository = taskRepository;
     }
 
+    @Override
+    public TaskDTO createTask(TaskRequest taskRequest) {
+        validateTaskRequest(taskRequest);
+
+        Task task = new Task(taskRequest.getTitle(), taskRequest.getDescription());
+
+        if (taskRequest.getStatus() != null) {
+            task.setStatus(taskRequest.getStatus());
+        }
+        if (taskRequest.getPriority() != null) {
+            task.setPriority(taskRequest.getPriority());
+        }
+        if (taskRequest.getDueDate() != null) {
+            task.setDueDate(taskRequest.getDueDate());
+        }
+
+        Task savedTask = taskRepository.creatTask(task);
+        return entityToDTO(savedTask);
+    }
+
 
 
 
