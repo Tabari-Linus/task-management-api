@@ -1,6 +1,7 @@
 package lii.cloudnovataskmanagementapi.dto;
 
 
+import lii.cloudnovataskmanagementapi.enums.TaskPriority;
 import lii.cloudnovataskmanagementapi.enums.TaskStatus;
 import lombok.*;
 
@@ -16,5 +17,6 @@ public class TaskResponse {
     private String title;
     private String description;
     private TaskStatus status;
+    private TaskPriority priority;
     private LocalDateTime dueDate;
 }
