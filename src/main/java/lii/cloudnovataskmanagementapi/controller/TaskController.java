@@ -1,10 +1,12 @@
 package lii.cloudnovataskmanagementapi.controller;
 
+import lii.cloudnovataskmanagementapi.dto.ApiSuccessResponse;
 import lii.cloudnovataskmanagementapi.dto.TaskResponse;
 import lii.cloudnovataskmanagementapi.dto.TaskRequest;
 import lii.cloudnovataskmanagementapi.enums.TaskStatus;
 import lii.cloudnovataskmanagementapi.model.Task;
 import lii.cloudnovataskmanagementapi.service.TaskService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,16 +19,18 @@ import java.util.UUID;
 @RequestMapping("/api/v1/tasks")
 public class TaskController {
 
-    private TaskService taskService;
+    private final TaskService taskService;
 
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
 
     @PostMapping
-    public Task createTask(@RequestBody TaskRequest task) {
-        TaskResponse taskResponse = taskService.createTask(task);
-        return dtoToEntity(taskResponse);
+    public ResponseEntity<ApiSuccessResponse> createTask(@RequestBody TaskRequest task) {
+        taskService.createTask(task);
+        return new ResponseEntity<>(
+                new ApiSuccessResponse("Task created successfully","Created", HttpStatus.CREATED.value()),
+                HttpStatus.CREATED);
     }
 
     @GetMapping
