@@ -48,6 +48,18 @@ public class TaskRepository {
                 .collect(Collectors.toList());
     }
 
+    public void deleteById(UUID id) {
+        taskdb.remove(id);
+    }
+
+    public boolean existsById(UUID id) {
+        return taskdb.containsKey(id);
+    }
+
+    public long count() {
+        return taskdb.size();
+    }
+
 
     private void initializeSampleData() {
         Task task1 = new Task("Setup Development Environment", "Install Java, Maven, and IDE");
