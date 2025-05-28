@@ -62,7 +62,7 @@ public class TaskController {
     public ResponseEntity<TaskResponse> updateTask(@PathVariable UUID id,
                                                    @RequestBody TaskRequest taskRequest) {
         TaskResponse updatedTask = taskServiceImpl.updateTask(id, taskRequest);
-        return ResponseEntity.ok(updatedTask);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedTask);
     }
 
     @DeleteMapping("/{id}")
@@ -70,7 +70,7 @@ public class TaskController {
         taskServiceImpl.deleteTask(id);
         Map<String, String> response = new HashMap<>();
         response.put("message", "Task deleted successfully");
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PatchMapping("/{id}/status")
@@ -90,13 +90,4 @@ public class TaskController {
         return ResponseEntity.ok(stats);
     }
 
-
-    public Task dtoToEntity(TaskResponse dto) {
-        return Task.builder()
-                .title(dto.getTitle())
-                .description(dto.getDescription())
-                .dueDate(dto.getDueDate())
-                .status(dto.getStatus())
-                .build();
-    }
 }
