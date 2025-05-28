@@ -131,6 +131,15 @@ public class TaskService implements TaskServiceInterface {
                 .build();
     }
 
+    private Task dtoToEntity(TaskDTO dto) {
+        return Task.builder()
+                .title(dto.getTitle())
+                .description(dto.getDescription())
+                .dueDate(dto.getDueDate())
+                .status(dto.getStatus())
+                .build();
+    }
+
     private void validateTaskRequest(TaskRequest taskRequest) {
         if (taskRequest.getTitle() == null || taskRequest.getTitle().trim().isEmpty()) {
             throw new IllegalArgumentException("Task title cannot be null or empty");
