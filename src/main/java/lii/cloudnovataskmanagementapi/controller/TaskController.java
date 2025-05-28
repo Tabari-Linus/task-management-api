@@ -8,7 +8,9 @@ import lii.cloudnovataskmanagementapi.service.TaskService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -59,11 +61,23 @@ public class TaskController {
         return ResponseEntity.ok(updatedTask);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, String>> deleteTask(@PathVariable UUID id) {
+        taskService.deleteTask(id);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Task deleted successfully");
+        response.put("id", id.toString());
+        return ResponseEntity.ok(response);
+    }
+
     @PatchMapping("/{id}/status")
     public ResponseEntity<TaskDTO> updateTaskStatus( @PathVariable UUID id, @RequestParam TaskStatus status) {
         TaskDTO updatedTask = taskService.updateTaskStatus(id, status);
         return ResponseEntity.ok(updatedTask);
     }
+
+
     public Task dtoToEntity(TaskDTO dto) {
         return Task.builder()
                 .title(dto.getTitle())
