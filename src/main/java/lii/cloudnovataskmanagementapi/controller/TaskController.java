@@ -59,6 +59,11 @@ public class TaskController {
         return ResponseEntity.ok(updatedTask);
     }
 
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<TaskDTO> updateTaskStatus( @PathVariable UUID id, @RequestParam TaskStatus status) {
+        TaskDTO updatedTask = taskService.updateTaskStatus(id, status);
+        return ResponseEntity.ok(updatedTask);
+    }
     public Task dtoToEntity(TaskDTO dto) {
         return Task.builder()
                 .title(dto.getTitle())
