@@ -5,7 +5,7 @@ import lii.cloudnovataskmanagementapi.dto.TaskResponse;
 import lii.cloudnovataskmanagementapi.dto.TaskRequest;
 import lii.cloudnovataskmanagementapi.enums.TaskStatus;
 import lii.cloudnovataskmanagementapi.model.Task;
-import lii.cloudnovataskmanagementapi.service.TaskService;
+import lii.cloudnovataskmanagementapi.service.TaskServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,15 +19,15 @@ import java.util.UUID;
 @RequestMapping("/api/v1/tasks")
 public class TaskController {
 
-    private final TaskService taskService;
+    private final TaskServiceImpl taskServiceImpl;
 
-    public TaskController(TaskService taskService) {
-        this.taskService = taskService;
+    public TaskController(TaskServiceImpl taskServiceImpl) {
+        this.taskServiceImpl = taskServiceImpl;
     }
 
     @PostMapping
     public ResponseEntity<ApiSuccessResponse> createTask(@RequestBody TaskRequest task) {
-        taskService.createTask(task);
+        taskServiceImpl.createTask(task);
         return new ResponseEntity<>(
                 new ApiSuccessResponse("Task created successfully","Created", HttpStatus.CREATED.value()),
                 HttpStatus.CREATED);
@@ -41,11 +41,11 @@ public class TaskController {
         List<TaskResponse> tasks;
 
         if (status != null) {
-            tasks = taskService.getTasksByStatus(status);
+            tasks = taskServiceImpl.getTasksByStatus(status);
         } else if (search != null) {
-            tasks = taskService.searchTasksByTitle(search);
+            tasks = taskServiceImpl.searchTasksByTitle(search);
         } else {
-            tasks = taskService.getAllTasks();
+            tasks = taskServiceImpl.getAllTasks();
         }
 
         return ResponseEntity.ok(tasks);
@@ -53,7 +53,7 @@ public class TaskController {
 
     @GetMapping("/{id}")
     public ResponseEntity<TaskResponse> getTaskById(@PathVariable UUID id) {
-        TaskResponse task = taskService.getTaskById(id);
+        TaskResponse task = taskServiceImpl.getTaskById(id);
         return ResponseEntity.ok(task);
     }
 
@@ -61,13 +61,13 @@ public class TaskController {
     @PutMapping("/{id}")
     public ResponseEntity<TaskResponse> updateTask(@PathVariable UUID id,
                                                    @RequestBody TaskRequest taskRequest) {
-        TaskResponse updatedTask = taskService.updateTask(id, taskRequest);
+        TaskResponse updatedTask = taskServiceImpl.updateTask(id, taskRequest);
         return ResponseEntity.ok(updatedTask);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, String>> deleteTask(@PathVariable UUID id) {
-        taskService.deleteTask(id);
+        taskServiceImpl.deleteTask(id);
 
         Map<String, String> response = new HashMap<>();
         response.put("message", "Task deleted successfully");
@@ -77,18 +77,18 @@ public class TaskController {
 
     @PatchMapping("/{id}/status")
     public ResponseEntity<TaskResponse> updateTaskStatus(@PathVariable UUID id, @RequestParam TaskStatus status) {
-        TaskResponse updatedTask = taskService.updateTaskStatus(id, status);
+        TaskResponse updatedTask = taskServiceImpl.updateTaskStatus(id, status);
         return ResponseEntity.ok(updatedTask);
     }
 
     @GetMapping("/stats")
     public ResponseEntity<Map<String, Object>> getTaskStats() {
         Map<String, Object> stats = new HashMap<>();
-        stats.put("totalTasks", taskService.getTaskCount());
-        stats.put("pendingTasks", taskService.getTasksByStatus(TaskStatus.PENDING).size());
-        stats.put("inProgressTasks", taskService.getTasksByStatus(TaskStatus.IN_PROGRESS).size());
-        stats.put("completedTasks", taskService.getTasksByStatus(TaskStatus.COMPLETED).size());
-        stats.put("cancelledTasks", taskService.getTasksByStatus(TaskStatus.CANCELLED).size());
+        stats.put("totalTasks", taskServiceImpl.getTaskCount());
+        stats.put("pendingTasks", taskServiceImpl.getTasksByStatus(TaskStatus.PENDING).size());
+        stats.put("inProgressTasks", taskServiceImpl.getTasksByStatus(TaskStatus.IN_PROGRESS).size());
+        stats.put("completedTasks", taskServiceImpl.getTasksByStatus(TaskStatus.COMPLETED).size());
+        stats.put("cancelledTasks", taskServiceImpl.getTasksByStatus(TaskStatus.CANCELLED).size());
         return ResponseEntity.ok(stats);
     }
 
