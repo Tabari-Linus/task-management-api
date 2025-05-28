@@ -35,14 +35,14 @@ public class TaskController {
     @GetMapping
     public ResponseEntity<List<TaskResponse>> getAllTasks(
             @RequestParam(required = false) TaskStatus status,
-            @RequestParam(required = false) String search) {
+            @RequestParam(required = false) String title) {
 
         List<TaskResponse> tasks;
 
         if (status != null) {
             tasks = taskServiceImpl.getTasksByStatus(status);
-        } else if (search != null) {
-            tasks = taskServiceImpl.searchTasksByTitle(search);
+        } else if (title != null) {
+            tasks = taskServiceImpl.searchTasksByTitle(title);
         } else {
             tasks = taskServiceImpl.getAllTasks();
         }
