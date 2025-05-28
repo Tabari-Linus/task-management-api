@@ -52,6 +52,12 @@ public class TaskController {
     }
 
 
+    @PutMapping("/{id}")
+    public ResponseEntity<TaskDTO> updateTask( @PathVariable UUID id,
+            @RequestBody TaskRequest taskRequest) {
+        TaskDTO updatedTask = taskService.updateTask(id, taskRequest);
+        return ResponseEntity.ok(updatedTask);
+    }
 
     public Task dtoToEntity(TaskDTO dto) {
         return Task.builder()
