@@ -77,6 +77,17 @@ public class TaskController {
         return ResponseEntity.ok(updatedTask);
     }
 
+    @GetMapping("/stats")
+    public ResponseEntity<Map<String, Object>> getTaskStats() {
+        Map<String, Object> stats = new HashMap<>();
+        stats.put("totalTasks", taskService.getTaskCount());
+        stats.put("pendingTasks", taskService.getTasksByStatus(TaskStatus.PENDING).size());
+        stats.put("inProgressTasks", taskService.getTasksByStatus(TaskStatus.IN_PROGRESS).size());
+        stats.put("completedTasks", taskService.getTasksByStatus(TaskStatus.COMPLETED).size());
+        stats.put("cancelledTasks", taskService.getTasksByStatus(TaskStatus.CANCELLED).size());
+        return ResponseEntity.ok(stats);
+    }
+
 
     public Task dtoToEntity(TaskDTO dto) {
         return Task.builder()
