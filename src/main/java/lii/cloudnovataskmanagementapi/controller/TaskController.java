@@ -4,7 +4,6 @@ import lii.cloudnovataskmanagementapi.dto.ApiSuccessResponse;
 import lii.cloudnovataskmanagementapi.dto.TaskResponse;
 import lii.cloudnovataskmanagementapi.dto.TaskRequest;
 import lii.cloudnovataskmanagementapi.enums.TaskStatus;
-import lii.cloudnovataskmanagementapi.model.Task;
 import lii.cloudnovataskmanagementapi.service.TaskServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
