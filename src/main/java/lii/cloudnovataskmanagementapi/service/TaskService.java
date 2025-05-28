@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+
 @Service
 public class TaskService implements TaskServiceInterface {
 
@@ -121,22 +122,13 @@ public class TaskService implements TaskServiceInterface {
         return taskRepository.count();
     }
 
-    private TaskDTO entityToDTO(Task task) {
+    public TaskDTO entityToDTO(Task task) {
         return TaskDTO.builder()
                 .id(task.getId())
                 .title(task.getTitle())
                 .description(task.getDescription())
                 .status(task.getStatus())
                 .dueDate(task.getDueDate())
-                .build();
-    }
-
-    private Task dtoToEntity(TaskDTO dto) {
-        return Task.builder()
-                .title(dto.getTitle())
-                .description(dto.getDescription())
-                .dueDate(dto.getDueDate())
-                .status(dto.getStatus())
                 .build();
     }
 
