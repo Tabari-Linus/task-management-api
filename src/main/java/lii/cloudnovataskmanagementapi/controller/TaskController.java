@@ -68,7 +68,6 @@ public class TaskController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, String>> deleteTask(@PathVariable UUID id) {
         taskServiceImpl.deleteTask(id);
-
         Map<String, String> response = new HashMap<>();
         response.put("message", "Task deleted successfully");
         return ResponseEntity.ok(response);
