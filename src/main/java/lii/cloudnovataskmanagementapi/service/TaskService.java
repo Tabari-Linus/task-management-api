@@ -1,6 +1,6 @@
 package lii.cloudnovataskmanagementapi.service;
 
-import lii.cloudnovataskmanagementapi.dto.TaskDTO;
+import lii.cloudnovataskmanagementapi.dto.TaskResponse;
 import lii.cloudnovataskmanagementapi.dto.TaskRequest;
 import lii.cloudnovataskmanagementapi.enums.TaskStatus;
 import lii.cloudnovataskmanagementapi.exception.TaskNotFoundException;
@@ -23,7 +23,7 @@ public class TaskService implements TaskServiceInterface {
     }
 
     @Override
-    public TaskDTO createTask(TaskRequest taskRequest) {
+    public TaskResponse createTask(TaskRequest taskRequest) {
         validateTaskRequest(taskRequest);
 
         Task task = new Task(taskRequest.getTitle(), taskRequest.getDescription());
@@ -43,28 +43,28 @@ public class TaskService implements TaskServiceInterface {
     }
 
     @Override
-    public TaskDTO getTaskById(UUID id) {
+    public TaskResponse getTaskById(UUID id) {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException( id));
         return entityToDTO(task);
     }
 
     @Override
-    public List<TaskDTO> getAllTasks() {
+    public List<TaskResponse> getAllTasks() {
         return taskRepository.findAll().stream()
                 .map(this::entityToDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<TaskDTO> getTasksByStatus(TaskStatus status) {
+    public List<TaskResponse> getTasksByStatus(TaskStatus status) {
         return taskRepository.findByStatus(status).stream()
                 .map(this::entityToDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<TaskDTO> searchTasksByTitle(String title) {
+    public List<TaskResponse> searchTasksByTitle(String title) {
         if (title == null || title.trim().isEmpty()) {
             return getAllTasks();
         }
@@ -75,7 +75,7 @@ public class TaskService implements TaskServiceInterface {
 
 
     @Override
-    public TaskDTO updateTask(UUID id, TaskRequest taskRequest) {
+    public TaskResponse updateTask(UUID id, TaskRequest taskRequest) {
         validateTaskRequest(taskRequest);
 
         Task existingTask = taskRepository.findById(id)
@@ -100,7 +100,7 @@ public class TaskService implements TaskServiceInterface {
 
 
     @Override
-    public TaskDTO updateTaskStatus(UUID id, TaskStatus status) {
+    public TaskResponse updateTaskStatus(UUID id, TaskStatus status) {
         Task existingTask = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
 
@@ -122,8 +122,8 @@ public class TaskService implements TaskServiceInterface {
         return taskRepository.count();
     }
 
-    public TaskDTO entityToDTO(Task task) {
-        return TaskDTO.builder()
+    public TaskResponse entityToDTO(Task task) {
+        return TaskResponse.builder()
                 .id(task.getId())
                 .title(task.getTitle())
                 .description(task.getDescription())

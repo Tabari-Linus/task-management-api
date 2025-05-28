@@ -1,6 +1,6 @@
 package lii.cloudnovataskmanagementapi.service;
 
-import lii.cloudnovataskmanagementapi.dto.TaskDTO;
+import lii.cloudnovataskmanagementapi.dto.TaskResponse;
 import lii.cloudnovataskmanagementapi.dto.TaskRequest;
 import lii.cloudnovataskmanagementapi.enums.TaskStatus;
 
@@ -9,19 +9,19 @@ import java.util.UUID;
 
 public interface TaskServiceInterface {
 
-    TaskDTO createTask(TaskRequest taskRequest);
+    TaskResponse createTask(TaskRequest taskRequest);
 
-    TaskDTO getTaskById(UUID id);
+    TaskResponse getTaskById(UUID id);
 
-    List<TaskDTO> getAllTasks();
+    List<TaskResponse> getAllTasks();
 
-    List<TaskDTO> getTasksByStatus(TaskStatus status);
+    List<TaskResponse> getTasksByStatus(TaskStatus status);
 
-    List<TaskDTO> searchTasksByTitle(String title);
+    List<TaskResponse> searchTasksByTitle(String title);
 
-    TaskDTO updateTask(UUID id, TaskRequest taskRequest);
+    TaskResponse updateTask(UUID id, TaskRequest taskRequest);
 
-    TaskDTO updateTaskStatus(UUID id, TaskStatus status);
+    TaskResponse updateTaskStatus(UUID id, TaskStatus status);
 
     void deleteTask(UUID id);
 

@@ -1,6 +1,6 @@
 package lii.cloudnovataskmanagementapi.controller;
 
-import lii.cloudnovataskmanagementapi.dto.TaskDTO;
+import lii.cloudnovataskmanagementapi.dto.TaskResponse;
 import lii.cloudnovataskmanagementapi.dto.TaskRequest;
 import lii.cloudnovataskmanagementapi.enums.TaskStatus;
 import lii.cloudnovataskmanagementapi.model.Task;
@@ -25,16 +25,16 @@ public class TaskController {
 
     @PostMapping
     public Task createTask(@RequestBody TaskRequest task) {
-        TaskDTO taskDTO = taskService.createTask(task);
-        return dtoToEntity(taskDTO);
+        TaskResponse taskResponse = taskService.createTask(task);
+        return dtoToEntity(taskResponse);
     }
 
     @GetMapping
-    public ResponseEntity<List<TaskDTO>> getAllTasks(
+    public ResponseEntity<List<TaskResponse>> getAllTasks(
             @RequestParam(required = false) TaskStatus status,
             @RequestParam(required = false) String search) {
 
-        List<TaskDTO> tasks;
+        List<TaskResponse> tasks;
 
         if (status != null) {
             tasks = taskService.getTasksByStatus(status);
@@ -48,16 +48,16 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TaskDTO> getTaskById(@PathVariable UUID id) {
-        TaskDTO task = taskService.getTaskById(id);
+    public ResponseEntity<TaskResponse> getTaskById(@PathVariable UUID id) {
+        TaskResponse task = taskService.getTaskById(id);
         return ResponseEntity.ok(task);
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<TaskDTO> updateTask( @PathVariable UUID id,
-            @RequestBody TaskRequest taskRequest) {
-        TaskDTO updatedTask = taskService.updateTask(id, taskRequest);
+    public ResponseEntity<TaskResponse> updateTask(@PathVariable UUID id,
+                                                   @RequestBody TaskRequest taskRequest) {
+        TaskResponse updatedTask = taskService.updateTask(id, taskRequest);
         return ResponseEntity.ok(updatedTask);
     }
 
@@ -72,8 +72,8 @@ public class TaskController {
     }
 
     @PatchMapping("/{id}/status")
-    public ResponseEntity<TaskDTO> updateTaskStatus( @PathVariable UUID id, @RequestParam TaskStatus status) {
-        TaskDTO updatedTask = taskService.updateTaskStatus(id, status);
+    public ResponseEntity<TaskResponse> updateTaskStatus(@PathVariable UUID id, @RequestParam TaskStatus status) {
+        TaskResponse updatedTask = taskService.updateTaskStatus(id, status);
         return ResponseEntity.ok(updatedTask);
     }
 
@@ -89,7 +89,7 @@ public class TaskController {
     }
 
 
-    public Task dtoToEntity(TaskDTO dto) {
+    public Task dtoToEntity(TaskResponse dto) {
         return Task.builder()
                 .title(dto.getTitle())
                 .description(dto.getDescription())
