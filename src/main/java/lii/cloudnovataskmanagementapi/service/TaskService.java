@@ -2,9 +2,15 @@ package lii.cloudnovataskmanagementapi.service;
 
 import lii.cloudnovataskmanagementapi.dto.TaskDTO;
 import lii.cloudnovataskmanagementapi.dto.TaskRequest;
+import lii.cloudnovataskmanagementapi.enums.TaskStatus;
+import lii.cloudnovataskmanagementapi.exception.TaskNotFoundException;
 import lii.cloudnovataskmanagementapi.model.Task;
 import lii.cloudnovataskmanagementapi.repository.TaskRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskService implements TaskServiceInterface {
@@ -35,6 +41,36 @@ public class TaskService implements TaskServiceInterface {
         return entityToDTO(savedTask);
     }
 
+    @Override
+    public TaskDTO getTaskById(UUID id) {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException( id));
+        return entityToDTO(task);
+    }
+
+    @Override
+    public List<TaskDTO> getAllTasks() {
+        return taskRepository.findAll().stream()
+                .map(this::entityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TaskDTO> getTasksByStatus(TaskStatus status) {
+        return taskRepository.findByStatus(status).stream()
+                .map(this::entityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TaskDTO> searchTasksByTitle(String title) {
+        if (title == null || title.trim().isEmpty()) {
+            return getAllTasks();
+        }
+        return taskRepository.findByTitleContaining(title.trim()).stream()
+                .map(this::entityToDTO)
+                .collect(Collectors.toList());
+    }
 
 
 
