@@ -38,7 +38,7 @@ public class TaskServiceImpl implements TaskService {
             task.setDueDate(taskRequest.getDueDate());
         }
 
-        Task savedTask = taskRepository.creatTask(task);
+       taskRepository.creatTask(task);
     }
 
     @Override
@@ -93,7 +93,7 @@ public class TaskServiceImpl implements TaskService {
             existingTask.setDueDate(taskRequest.getDueDate());
         }
 
-        Task updatedTask = taskRepository.creatTask(existingTask);
+        Task updatedTask = taskRepository.updateTask(existingTask);
         return entityToDTO(updatedTask);
     }
 
@@ -104,7 +104,7 @@ public class TaskServiceImpl implements TaskService {
                 .orElseThrow(() -> new TaskNotFoundException(id));
 
         existingTask.setStatus(status);
-        Task updatedTask = taskRepository.creatTask(existingTask);
+        Task updatedTask = taskRepository.updateTask(existingTask);
         return entityToDTO(updatedTask);
     }
 
