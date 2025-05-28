@@ -16,14 +16,14 @@ import java.util.stream.Collectors;
 @Service
 public class TaskService implements TaskServiceInterface {
 
-    private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
 
     public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
     @Override
-    public TaskResponse createTask(TaskRequest taskRequest) {
+    public void createTask(TaskRequest taskRequest) {
         validateTaskRequest(taskRequest);
 
         Task task = new Task(taskRequest.getTitle(), taskRequest.getDescription());
@@ -39,7 +39,6 @@ public class TaskService implements TaskServiceInterface {
         }
 
         Task savedTask = taskRepository.creatTask(task);
-        return entityToDTO(savedTask);
     }
 
     @Override
