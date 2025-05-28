@@ -98,6 +98,28 @@ public class TaskService implements TaskServiceInterface {
     }
 
 
+    @Override
+    public TaskDTO updateTaskStatus(UUID id, TaskStatus status) {
+        Task existingTask = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
+
+        existingTask.setStatus(status);
+        Task updatedTask = taskRepository.creatTask(existingTask);
+        return entityToDTO(updatedTask);
+    }
+
+    @Override
+    public void deleteTask(UUID id) {
+        if (!taskRepository.existsById(id)) {
+            throw new TaskNotFoundException(id);
+        }
+        taskRepository.deleteById(id);
+    }
+
+    @Override
+    public long getTaskCount() {
+        return taskRepository.count();
+    }
 
     private TaskDTO entityToDTO(Task task) {
         return TaskDTO.builder()
