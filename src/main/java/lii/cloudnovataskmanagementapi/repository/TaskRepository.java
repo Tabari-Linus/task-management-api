@@ -2,10 +2,8 @@ package lii.cloudnovataskmanagementapi.repository;
 
 import lii.cloudnovataskmanagementapi.model.Task;
 import lii.cloudnovataskmanagementapi.enums.TaskStatus;
-import lii.cloudnovataskmanagementapi.enums.TaskPriority;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -16,14 +14,10 @@ public class TaskRepository {
     private final Map<UUID, Task> taskdb = new ConcurrentHashMap<>();
     private final UUID generatorUUID = UUID.randomUUID() ;
 
-    public TaskRepository() {
-
-        initializeSampleData();
-    }
 
     public Task creatTask(Task task) {
         if (task.getId() == null) {
-            task.setId(UUID.randomUUID());
+            task.setId(generatorUUID);
         }
         taskdb.put(task.getId(), task);
         return task;
