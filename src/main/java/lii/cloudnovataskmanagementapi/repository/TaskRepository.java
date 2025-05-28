@@ -14,11 +14,19 @@ public class TaskRepository {
     private final Map<UUID, Task> taskdb = new ConcurrentHashMap<>();
 
 
-    public Task creatTask(Task task) {
+    public void creatTask(Task task) {
         if (task.getId() == null) {
             task.setId(UUID.randomUUID() );
         }
         taskdb.put(task.getId(), task);
+    }
+
+    public Task updateTask(Task task) {
+        if (task.getId() == null) {
+            task.setId(UUID.randomUUID() );
+        }
+        taskdb.put(task.getId(), task);
+
         return task;
     }
 
