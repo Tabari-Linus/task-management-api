@@ -71,7 +71,6 @@ public class TaskController {
 
         Map<String, String> response = new HashMap<>();
         response.put("message", "Task deleted successfully");
-        response.put("id", id.toString());
         return ResponseEntity.ok(response);
     }
 
