@@ -12,12 +12,11 @@ import java.util.stream.Collectors;
 public class TaskRepository {
 
     private final Map<UUID, Task> taskdb = new ConcurrentHashMap<>();
-    private final UUID generatorUUID = UUID.randomUUID() ;
 
 
     public Task creatTask(Task task) {
         if (task.getId() == null) {
-            task.setId(generatorUUID);
+            task.setId(UUID.randomUUID() );
         }
         taskdb.put(task.getId(), task);
         return task;
