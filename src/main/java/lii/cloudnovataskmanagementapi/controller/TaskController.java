@@ -2,12 +2,13 @@ package lii.cloudnovataskmanagementapi.controller;
 
 import lii.cloudnovataskmanagementapi.dto.TaskDTO;
 import lii.cloudnovataskmanagementapi.dto.TaskRequest;
+import lii.cloudnovataskmanagementapi.enums.TaskStatus;
 import lii.cloudnovataskmanagementapi.model.Task;
 import lii.cloudnovataskmanagementapi.service.TaskService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/tasks")
@@ -25,7 +26,23 @@ public class TaskController {
         return dtoToEntity(taskDTO);
     }
 
+    @GetMapping
+    public ResponseEntity<List<TaskDTO>> getAllTasks(
+            @RequestParam(required = false) TaskStatus status,
+            @RequestParam(required = false) String search) {
 
+        List<TaskDTO> tasks;
+
+        if (status != null) {
+            tasks = taskService.getTasksByStatus(status);
+        } else if (search != null) {
+            tasks = taskService.searchTasksByTitle(search);
+        } else {
+            tasks = taskService.getAllTasks();
+        }
+
+        return ResponseEntity.ok(tasks);
+    }
 
 
     public Task dtoToEntity(TaskDTO dto) {
