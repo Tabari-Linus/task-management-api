@@ -73,6 +73,30 @@ public class TaskService implements TaskServiceInterface {
     }
 
 
+    @Override
+    public TaskDTO updateTask(UUID id, TaskRequest taskRequest) {
+        validateTaskRequest(taskRequest);
+
+        Task existingTask = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
+
+        existingTask.setTitle(taskRequest.getTitle());
+        existingTask.setDescription(taskRequest.getDescription());
+
+        if (taskRequest.getStatus() != null) {
+            existingTask.setStatus(taskRequest.getStatus());
+        }
+        if (taskRequest.getPriority() != null) {
+            existingTask.setPriority(taskRequest.getPriority());
+        }
+        if (taskRequest.getDueDate() != null) {
+            existingTask.setDueDate(taskRequest.getDueDate());
+        }
+
+        Task updatedTask = taskRepository.creatTask(existingTask);
+        return entityToDTO(updatedTask);
+    }
+
 
 
     private TaskDTO entityToDTO(Task task) {
