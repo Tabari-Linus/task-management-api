@@ -34,13 +34,13 @@ docker run -p 8080:8080 cloudnova-task-management-api
 
 ### API Endpoints
 
-| Method | Endpoint                    | Description                            |
-|--------|-----------------------------|----------------------------------------|
-| GET | `/api/v1/tasks`             | Get all tasks (supports filtering)     |
-| GET | `/api/v1/tasks/{id}`        | Get task by ID                         |
-| POST | `/api/v1/tasks`             | Create new task                        |
-| PUT | `/api/v1/tasks/{id}`        | Update task                            |
-| PATCH | `/api/v1/tasks/{id}/status` | Update task status                     |
-| DELETE | `/api/v1/tasks/{id}`        | Delete task                            |
-| GET | `/api/v1/tasks/stats`       | Get task statistical<br/>count of task |
-| GET | `/api/v1/tasks/search`      | search task by keyword                 |
+| Method | Endpoint                    | Description                        |
+|--------|-----------------------------|------------------------------------|
+| GET | `/api/v1/tasks`             | Get all tasks (supports filtering) |
+| GET | `/api/v1/tasks/{id}`        | Get task by ID                     |
+| POST | `/api/v1/tasks`             | Create new task                    |
+| PUT | `/api/v1/tasks/{id}`        | Update task                        |
+| PATCH | `/api/v1/tasks/{id}/status` | Update task status                 |
+| DELETE | `/api/v1/tasks/{id}`        | Delete task                        |
+| GET | `/api/v1/tasks/stats`       | Get task statistical count of task |
+| GET | `/api/v1/tasks/search`      | search task by keyword             |
