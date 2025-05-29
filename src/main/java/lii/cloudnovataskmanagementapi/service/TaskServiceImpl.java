@@ -121,6 +121,13 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.count();
     }
 
+    @Override
+    public List<TaskResponse> searchTaskByKeyWord(String keyword) {
+        return taskRepository.findTaskByKeyWord(keyword).stream()
+                .map(this::entityToDTO)
+                .collect(Collectors.toList());
+    }
+
     public TaskResponse entityToDTO(Task task) {
         return TaskResponse.builder()
                 .id(task.getId())
