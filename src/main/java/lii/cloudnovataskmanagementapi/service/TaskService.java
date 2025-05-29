@@ -19,6 +19,8 @@ public interface TaskService {
 
     List<TaskResponse> searchTasksByTitle(String title);
 
+    List<TaskResponse> searchTaskByKeyWord(String keyword);
+
     TaskResponse updateTask(UUID id, TaskRequest taskRequest);
 
     TaskResponse updateTaskStatus(UUID id, TaskStatus status);
