@@ -89,4 +89,9 @@ public class TaskController {
         return ResponseEntity.ok(stats);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<TaskResponse>> searchTasks(@RequestParam(required = false) String keyword) {
+        return ResponseEntity.ok(taskServiceImpl.searchTaskByKeyWord(keyword));
+    }
+
 }
