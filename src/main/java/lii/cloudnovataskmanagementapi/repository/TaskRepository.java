@@ -1,5 +1,6 @@
 package lii.cloudnovataskmanagementapi.repository;
 
+import lii.cloudnovataskmanagementapi.enums.TaskPriority;
 import lii.cloudnovataskmanagementapi.model.Task;
 import lii.cloudnovataskmanagementapi.enums.TaskStatus;
 import org.springframework.stereotype.Repository;
@@ -47,6 +48,16 @@ public class TaskRepository {
     public List<Task> findByTitleContaining(String title) {
         return taskdb.values().stream()
                 .filter(task -> task.getTitle().toLowerCase().contains(title.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Task> findTaskByKeyWord(String keyword) {
+        return taskdb.values().stream()
+                .filter(task -> (task.getTitle() != null && task.getTitle().toLowerCase().contains(keyword.toLowerCase())) ||
+                        (task.getDescription() != null && task.getDescription().toLowerCase().contains(keyword.toLowerCase())) ||
+                        (task.getPriority() != null && task.getPriority().toString().toLowerCase().contains(keyword.toLowerCase())) ||
+                        (task.getStatus() != null && task.getStatus().toString().toLowerCase().contains(keyword.toLowerCase()))
+                )
                 .collect(Collectors.toList());
     }
 
