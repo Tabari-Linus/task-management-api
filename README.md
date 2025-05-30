@@ -1,28 +1,30 @@
 # Cloudnovas-task-management-api
-A simple Task Management REST API 
+A simple **Task Management REST API** that provide a comprehensive way of Creating , updating, retriving and deleting task.
+This API when integrated will allow clients to create, delete, update and view task.
+It also provides a **Statistical Summary** of the task that is in the system
 
-Setup and Usage Instructions
+*Setup and Usage Instructions*
 
 ### Prerequisites
 - Java 21 or higher
-- Docker and Docker Compose
+- Docker
 - Maven 4.0+ (or use included Maven wrapper)
 - Git
 
 ### Quick Start
 
-1. **Clone the repository:**
+**Clone the repository:**
 ```bash
 git clone https://github.com/Tabari-Linus/task-management-api.git
 cd task-management-api
 ```
 
-2. **Run with Maven:**
+**Run with Maven:**
 ```bash
 ./mvnw spring-boot:run
 ```
 
-3. **Or run with Docker:**
+**Or run with Docker:**
 ```bash
 docker build -t cloudnova-task-management-api .
 docker run -p 8080:8080 cloudnova-task-management-api

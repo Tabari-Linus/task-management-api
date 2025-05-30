@@ -14,7 +14,7 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("Cloud nova Task Management API")
-                        .description("A comprehensive REST API for managing tasks ")
+                        .description("It uses the Cloud nova Task Management API. A java springboot Rest application that serves endpoints for implementing task CRUD and statistics")
                         .version("v1.0.0")
                         .contact(new Contact()
                                 .name("CloudNova Inc.")));
