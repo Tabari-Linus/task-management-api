@@ -3,12 +3,15 @@ package lii.cloudnovataskmanagementapi.controller;
 import lii.cloudnovataskmanagementapi.dto.ApiSuccessResponse;
 import lii.cloudnovataskmanagementapi.dto.TaskResponse;
 import lii.cloudnovataskmanagementapi.dto.TaskRequest;
+import lii.cloudnovataskmanagementapi.enums.TaskPriority;
 import lii.cloudnovataskmanagementapi.enums.TaskStatus;
+import lii.cloudnovataskmanagementapi.service.TaskQueryService;
 import lii.cloudnovataskmanagementapi.service.TaskServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,16 +22,18 @@ import java.util.UUID;
 public class TaskController {
 
     private final TaskServiceImpl taskServiceImpl;
+    private final TaskQueryService taskQueryService;
 
-    public TaskController(TaskServiceImpl taskServiceImpl) {
+    public TaskController(TaskServiceImpl taskServiceImpl, TaskQueryService taskQueryService) {
         this.taskServiceImpl = taskServiceImpl;
+        this.taskQueryService = taskQueryService;
     }
 
     @PostMapping
-    public ResponseEntity<ApiSuccessResponse> createTask(@RequestBody TaskRequest task) {
+    public ResponseEntity<ApiSuccessResponse> createTask(@Valid @RequestBody TaskRequest task) {
         taskServiceImpl.createTask(task);
         return new ResponseEntity<>(
-                new ApiSuccessResponse("Task created successfully","Created", HttpStatus.CREATED.value()),
+                new ApiSuccessResponse("Task created successfully", "Created", HttpStatus.CREATED.value()),
                 HttpStatus.CREATED);
     }
 
@@ -36,17 +41,7 @@ public class TaskController {
     public ResponseEntity<List<TaskResponse>> getAllTasks(
             @RequestParam(required = false) TaskStatus status,
             @RequestParam(required = false) String title) {
-
-        List<TaskResponse> tasks;
-
-        if (status != null) {
-            tasks = taskServiceImpl.getTasksByStatus(status);
-        } else if (title != null) {
-            tasks = taskServiceImpl.searchTasksByTitle(title);
-        } else {
-            tasks = taskServiceImpl.getAllTasks();
-        }
-
+        List<TaskResponse> tasks = taskQueryService.getTasks(status, title);
         return ResponseEntity.ok(tasks);
     }
 
@@ -56,10 +51,8 @@ public class TaskController {
         return ResponseEntity.ok(task);
     }
 
-
     @PutMapping("/{id}")
-    public ResponseEntity<TaskResponse> updateTask(@PathVariable UUID id,
-                                                   @RequestBody TaskRequest taskRequest) {
+    public ResponseEntity<TaskResponse> updateTask(@PathVariable UUID id,@Valid @RequestBody TaskRequest taskRequest) {
         TaskResponse updatedTask = taskServiceImpl.updateTask(id, taskRequest);
         return ResponseEntity.status(HttpStatus.OK).body(updatedTask);
     }
@@ -73,7 +66,7 @@ public class TaskController {
     }
 
     @PatchMapping("/{id}/status")
-    public ResponseEntity<TaskResponse> updateTaskStatus(@PathVariable UUID id, @RequestParam TaskStatus status) {
+    public ResponseEntity<TaskResponse> updateTaskStatus(@PathVariable UUID id, @RequestParam  TaskStatus status) {
         TaskResponse updatedTask = taskServiceImpl.updateTaskStatus(id, status);
         return ResponseEntity.ok(updatedTask);
     }
@@ -93,5 +86,4 @@ public class TaskController {
     public ResponseEntity<List<TaskResponse>> searchTasks(@RequestParam(required = false) String keyword) {
         return ResponseEntity.ok(taskServiceImpl.searchTaskByKeyWord(keyword));
     }
-
 }
