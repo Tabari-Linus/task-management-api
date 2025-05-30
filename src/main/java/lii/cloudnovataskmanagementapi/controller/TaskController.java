@@ -79,6 +79,10 @@ public class TaskController {
         stats.put("inProgressTasks", taskServiceImpl.getTasksByStatus(TaskStatus.IN_PROGRESS).size());
         stats.put("completedTasks", taskServiceImpl.getTasksByStatus(TaskStatus.COMPLETED).size());
         stats.put("cancelledTasks", taskServiceImpl.getTasksByStatus(TaskStatus.CANCELLED).size());
+        stats.put("lowPriorityTask", taskServiceImpl.getTaskByPriority(TaskPriority.LOW).size());
+        stats.put("highPriorityTask", taskServiceImpl.getTaskByPriority(TaskPriority.HIGH).size());
+        stats.put("mediumPriorityTask", taskServiceImpl.getTaskByPriority(TaskPriority.MEDIUM).size());
+        stats.put("urgencyTask", taskServiceImpl.getTaskByPriority(TaskPriority.URGENT).size());
         return ResponseEntity.ok(stats);
     }
 
