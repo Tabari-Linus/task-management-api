@@ -133,12 +133,4 @@ public class TaskServiceImpl implements TaskService {
                 .build();
     }
 
-    private void validateTaskRequest(TaskRequest taskRequest) {
-        if (taskRequest.getTitle() == null || taskRequest.getTitle().trim().isEmpty()) {
-            throw new IllegalArgumentException("Task title cannot be null or empty");
-        }
-        if (taskRequest.getDescription() == null || taskRequest.getDescription().trim().isEmpty()) {
-            throw new IllegalArgumentException("Task description cannot be null or empty");
-        }
-    }
 }
