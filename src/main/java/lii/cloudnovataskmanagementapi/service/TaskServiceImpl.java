@@ -117,6 +117,9 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<TaskResponse> searchTaskByKeyWord(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return getAllTasks();
+        }
         return taskRepository.findTaskByKeyWord(keyword).stream()
                 .map(this::entityToDTO)
                 .collect(Collectors.toList());
