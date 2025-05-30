@@ -2,6 +2,7 @@ package lii.cloudnovataskmanagementapi.service;
 
 import lii.cloudnovataskmanagementapi.dto.TaskResponse;
 import lii.cloudnovataskmanagementapi.dto.TaskRequest;
+import lii.cloudnovataskmanagementapi.enums.TaskPriority;
 import lii.cloudnovataskmanagementapi.enums.TaskStatus;
 
 import java.util.List;
@@ -16,6 +17,8 @@ public interface TaskService {
     List<TaskResponse> getAllTasks();
 
     List<TaskResponse> getTasksByStatus(TaskStatus status);
+
+    List<TaskResponse> getTaskByPriority(TaskPriority priority);
 
     List<TaskResponse> searchTasksByTitle(String title);
 
