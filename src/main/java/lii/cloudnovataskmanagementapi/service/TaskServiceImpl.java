@@ -2,6 +2,7 @@ package lii.cloudnovataskmanagementapi.service;
 
 import lii.cloudnovataskmanagementapi.dto.TaskResponse;
 import lii.cloudnovataskmanagementapi.dto.TaskRequest;
+import lii.cloudnovataskmanagementapi.enums.TaskPriority;
 import lii.cloudnovataskmanagementapi.enums.TaskStatus;
 import lii.cloudnovataskmanagementapi.exception.TaskNotFoundException;
 import lii.cloudnovataskmanagementapi.model.Task;
@@ -49,6 +50,13 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<TaskResponse> getTasksByStatus(TaskStatus status) {
         return taskRepository.findByStatus(status).stream()
+                .map(this::entityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TaskResponse> getTaskByPriority(TaskPriority priority) {
+        return taskRepository.findByPriority(priority).stream()
                 .map(this::entityToDTO)
                 .collect(Collectors.toList());
     }
