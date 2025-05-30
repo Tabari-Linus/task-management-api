@@ -24,21 +24,12 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void createTask(TaskRequest taskRequest) {
-        validateTaskRequest(taskRequest);
 
         Task task = new Task(taskRequest.getTitle(), taskRequest.getDescription());
 
-        if (taskRequest.getStatus() != null) {
-            task.setStatus(taskRequest.getStatus());
-        }
-        if (taskRequest.getPriority() != null) {
-            task.setPriority(taskRequest.getPriority());
-        }
-        if (taskRequest.getDueDate() != null) {
-            task.setDueDate(taskRequest.getDueDate());
-        }
+        updateRequestInstance(taskRequest, task);
 
-       taskRepository.creatTask(task);
+        taskRepository.creatTask(task);
     }
 
     @Override
@@ -75,7 +66,6 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskResponse updateTask(UUID id, TaskRequest taskRequest) {
-        validateTaskRequest(taskRequest);
 
         Task existingTask = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
@@ -83,6 +73,13 @@ public class TaskServiceImpl implements TaskService {
         existingTask.setTitle(taskRequest.getTitle());
         existingTask.setDescription(taskRequest.getDescription());
 
+        updateRequestInstance(taskRequest, existingTask);
+
+        Task updatedTask = taskRepository.updateTask(existingTask);
+        return entityToDTO(updatedTask);
+    }
+
+    private void updateRequestInstance(TaskRequest taskRequest, Task existingTask) {
         if (taskRequest.getStatus() != null) {
             existingTask.setStatus(taskRequest.getStatus());
         }
@@ -92,9 +89,6 @@ public class TaskServiceImpl implements TaskService {
         if (taskRequest.getDueDate() != null) {
             existingTask.setDueDate(taskRequest.getDueDate());
         }
-
-        Task updatedTask = taskRepository.updateTask(existingTask);
-        return entityToDTO(updatedTask);
     }
 
 
