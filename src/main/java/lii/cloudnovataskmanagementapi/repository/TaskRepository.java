@@ -45,6 +45,12 @@ public class TaskRepository {
                 .collect(Collectors.toList());
     }
 
+    public List<Task> findByPriority(TaskPriority priority) {
+        return taskdb.values().stream()
+                .filter(task -> task.getPriority() == priority)
+                .collect(Collectors.toList());
+    }
+
     public List<Task> findByTitleContaining(String title) {
         return taskdb.values().stream()
                 .filter(task -> task.getTitle().toLowerCase().contains(title.toLowerCase()))
